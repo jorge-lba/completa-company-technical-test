@@ -28,6 +28,10 @@ class UserRepositoryImpInMemory extends UserRepository {
   async listAll() {
     return this.users;
   }
+
+  async showById(userId) {
+    return this.users.find((user) => user.id === userId);
+  }
 }
 
 UserRepositoryImpInMemory.getInstance();

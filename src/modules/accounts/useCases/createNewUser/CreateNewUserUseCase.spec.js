@@ -17,8 +17,11 @@ describe('Create a new User use case', () => {
       password: 'testPassword',
     };
 
-    const { name, email, password } = await createNewUserUseCase.execute(user);
+    const { id, name, email, password } = await createNewUserUseCase.execute(
+      user
+    );
 
+    expect(id).toBeDefined();
     expect(name).toEqual(user.name);
     expect(email).toEqual(user.email);
     expect(password).toBeUndefined();

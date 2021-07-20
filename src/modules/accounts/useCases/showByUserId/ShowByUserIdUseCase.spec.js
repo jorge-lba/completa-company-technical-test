@@ -17,8 +17,8 @@ describe('Show by User id use case', () => {
       password: 'testShow',
     };
 
-    await userRepository.create(user);
     const { id } = await userRepository.create(user);
+    await userRepository.create({ ...user, name: 'Test Show 2' });
 
     const result = await showByUserIdUseCase.execute(id);
 

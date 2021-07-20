@@ -76,6 +76,10 @@ class UserRepositoryImpInMemory extends UserRepository {
 
     this.users[userIndex] = newDataUser;
   }
+
+  async findOneByEmail(email) {
+    return this.users.find((user) => user.email === email);
+  }
 }
 
 UserRepositoryImpInMemory.getInstance();

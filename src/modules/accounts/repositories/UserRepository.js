@@ -37,6 +37,10 @@ class UserRepository {
   async changePasswordById() {
     throw new Error('Not implemented');
   }
+
+  async findOneByEmail() {
+    throw new Error('Not implemented');
+  }
 }
 
 export { UserRepository };

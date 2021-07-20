@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 import { UserRepository } from '../UserRepository.js';
 
 class UserRepositoryImpInMemory extends UserRepository {
@@ -8,6 +10,7 @@ class UserRepositoryImpInMemory extends UserRepository {
 
   async create({ name, email, password }) {
     const user = {
+      id: uuid(),
       name,
       email,
       password,

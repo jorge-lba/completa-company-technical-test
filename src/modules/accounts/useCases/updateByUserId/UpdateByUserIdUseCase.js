@@ -3,8 +3,8 @@ class UpdateByUserIdUseCase {
     this.repository = repository;
   }
 
-  async execute(userId) {
-    await this.repository.updateById(userId);
+  async execute(userId, { name, email }) {
+    await this.repository.updateById(userId, { name, email });
   }
 }
 

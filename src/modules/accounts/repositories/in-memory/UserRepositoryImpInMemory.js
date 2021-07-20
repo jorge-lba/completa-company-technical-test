@@ -37,6 +37,24 @@ class UserRepositoryImpInMemory extends UserRepository {
     const userIndex = this.users.findIndex((user) => user.id === userId);
     this.users.splice(userIndex, 1);
   }
+
+  async updateById(userId, { name, email }) {
+    const userIndex = this.users.findIndex((user) => user.id === userId);
+    const user = this.users[userIndex];
+
+    const newDataUser = {
+      ...user,
+      name,
+      email,
+      updatedAt: new Date(),
+    };
+
+    this.users[userIndex] = newDataUser;
+
+    delete newDataUser.password;
+
+    return newDataUser;
+  }
 }
 
 UserRepositoryImpInMemory.getInstance();

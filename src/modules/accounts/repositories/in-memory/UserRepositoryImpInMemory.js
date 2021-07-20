@@ -55,6 +55,19 @@ class UserRepositoryImpInMemory extends UserRepository {
 
     return newDataUser;
   }
+
+  async changePasswordById(userId, newPassword) {
+    const userIndex = this.users.findIndex((user) => user.id === userId);
+    const user = this.users[userIndex];
+
+    const newDataUser = {
+      ...user,
+      password: newPassword,
+      updatedAt: new Date(),
+    };
+
+    this.users[userIndex] = newDataUser;
+  }
 }
 
 UserRepositoryImpInMemory.getInstance();

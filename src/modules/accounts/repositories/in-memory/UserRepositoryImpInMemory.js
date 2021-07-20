@@ -20,9 +20,13 @@ class UserRepositoryImpInMemory extends UserRepository {
 
     this.users.push(user);
 
-    delete user.password;
-
-    return user;
+    return {
+      id: user.id,
+      name,
+      email,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
   }
 
   async listAll() {
@@ -51,9 +55,13 @@ class UserRepositoryImpInMemory extends UserRepository {
 
     this.users[userIndex] = newDataUser;
 
-    delete newDataUser.password;
-
-    return newDataUser;
+    return {
+      id: user.id,
+      name: newDataUser.name,
+      email: newDataUser.email,
+      createdAt: newDataUser.createdAt,
+      updatedAt: newDataUser.updatedAt,
+    };
   }
 
   async changePasswordById(userId, newPassword) {

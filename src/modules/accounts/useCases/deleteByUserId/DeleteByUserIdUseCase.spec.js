@@ -1,4 +1,5 @@
-import { UserRepositoryImpInMemory } from '../../repositories/in-memory/UserRepositoryImpInMemory';
+import { UserRepositoryImpInMemory } from '../../repositories/in-memory/UserRepositoryImpInMemory.js';
+import { DeleteByUserIdUseCase } from './DeleteByUserIdUseCase.js';
 
 describe('Delete user by id', () => {
   let userRepository;

@@ -1,4 +1,4 @@
-import { UserTokenRepository } from '../UserTokenRepository';
+import { UserTokenRepository } from '../UserTokenRepository.js';
 
 class UserTokenRepositoryImpInMemory extends UserTokenRepository {
   constructor(repository) {

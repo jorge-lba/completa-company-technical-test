@@ -2,13 +2,13 @@ class UserTokenRepository {
   constructor(repository) {
     this.repository = repository;
 
-    if(this.constrictor === UserTokenRepository) {
-      throw new TypeError("Cannot construct Abstract instances directly");
+    if (this.constrictor === UserTokenRepository) {
+      throw new TypeError('Cannot construct Abstract instances directly');
     }
   }
 
   static getInstance() {
-    if(!this.instance) {
+    if (!this.instance) {
       this.instance = new this();
     }
     return this.instance;
@@ -16,4 +16,3 @@ class UserTokenRepository {
 }
 
 export { UserTokenRepository };
-

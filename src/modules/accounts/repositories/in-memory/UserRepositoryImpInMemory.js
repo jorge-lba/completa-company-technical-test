@@ -32,6 +32,11 @@ class UserRepositoryImpInMemory extends UserRepository {
   async showById(userId) {
     return this.users.find((user) => user.id === userId);
   }
+
+  async deleteById(userId) {
+    const userIndex = this.users.findIndex((user) => user.id === userId);
+    this.users.splice(userIndex, 1);
+  }
 }
 
 UserRepositoryImpInMemory.getInstance();

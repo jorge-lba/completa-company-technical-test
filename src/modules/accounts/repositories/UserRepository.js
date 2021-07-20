@@ -17,6 +17,10 @@ class UserRepository {
   async create() {
     throw new Error('Not implemented');
   }
+
+  async listAll() {
+    throw new Error('Not implemented');
+  }
 }
 
 export { UserRepository };

@@ -21,6 +21,10 @@ class UserRepository {
   async listAll() {
     throw new Error('Not implemented');
   }
+
+  async showById() {
+    throw new Error('Not implemented');
+  }
 }
 
 export { UserRepository };

@@ -3,9 +3,9 @@ import jsonwebtoken from 'jsonwebtoken';
 import auth from '../../../../config/authentication.js';
 
 class AuthenticateUserUseCase {
-  constructor(userTokenRepository, userRepository) {
-    this.userTokenRepository = userTokenRepository;
+  constructor(userRepository, userTokenRepository) {
     this.userRepository = userRepository;
+    this.userTokenRepository = userTokenRepository;
   }
 
   async execute({ email, password }) {

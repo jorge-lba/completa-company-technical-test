@@ -3,9 +3,9 @@ class AuthenticateUserUseCase {
     this.userTokenRepository = userTokenRepository;
   }
 
-  async execute({ nickname, password }) {
+  async execute({ email, password }) {
     const token = await this.userTokenRepository.authenticate({
-      nickname,
+      email,
       password,
     });
     return token;

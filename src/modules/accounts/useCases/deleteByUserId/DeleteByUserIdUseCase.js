@@ -4,7 +4,7 @@ class DeleteByUserIdUseCase {
   }
 
   async execute(userId) {
-    await this.repository.deleteByUserId(userId);
+    await this.repository.deleteById(userId);
   }
 }
 

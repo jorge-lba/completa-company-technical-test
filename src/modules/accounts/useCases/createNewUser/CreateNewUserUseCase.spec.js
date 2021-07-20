@@ -3,11 +3,11 @@ import { CreateNewUserUseCase } from './CreateNewUserUseCase.js';
 
 describe('Create a new User use case', () => {
   let userRepository;
-  let useCase;
+  let createNewUserUseCase;
 
   beforeEach(() => {
     userRepository = UserRepositoryImpInMemory.getInstance();
-    useCase = new CreateNewUserUseCase(userRepository);
+    createNewUserUseCase = new CreateNewUserUseCase(userRepository);
   });
 
   it('should create a new user', async () => {
@@ -17,7 +17,7 @@ describe('Create a new User use case', () => {
       password: 'testPassword',
     };
 
-    const { name, email, password } = await useCase.execute(user);
+    const { name, email, password } = await createNewUserUseCase.execute(user);
 
     expect(name).toEqual(user.name);
     expect(email).toEqual(user.email);

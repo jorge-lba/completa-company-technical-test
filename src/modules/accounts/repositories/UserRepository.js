@@ -33,6 +33,10 @@ class UserRepository {
   async updateById() {
     throw new Error('Not implemented');
   }
+
+  async changePasswordById() {
+    throw new Error('Not implemented');
+  }
 }
 
 export { UserRepository };

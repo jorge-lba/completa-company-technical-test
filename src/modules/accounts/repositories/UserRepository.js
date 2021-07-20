@@ -29,6 +29,10 @@ class UserRepository {
   async deleteById() {
     throw new Error('Not implemented');
   }
+
+  async updateById() {
+    throw new Error('Not implemented');
+  }
 }
 
 export { UserRepository };

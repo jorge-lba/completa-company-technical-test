@@ -15,3 +15,5 @@ class UserTokenRepository {
   }
 }
 
+export { UserTokenRepository };
+

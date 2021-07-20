@@ -21,6 +21,12 @@ class UserRepositoryImpInMemory extends UserRepository {
 
     return user;
   }
+
+  async listAll() {
+    return this.users;
+  }
 }
+
+UserRepositoryImpInMemory.getInstance();
 
 export { UserRepositoryImpInMemory };

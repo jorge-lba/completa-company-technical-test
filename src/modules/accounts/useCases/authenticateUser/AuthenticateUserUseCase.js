@@ -17,13 +17,31 @@ class AuthenticateUserUseCase {
       throw new Error('Email or password incorrect!');
     }
 
-    const { expires_in_token, secret_token } = auth;
+    const {
+      expires_in_token,
+      expires_in_refresh_token,
+      secret_token,
+      secret_refresh_token,
+    } = auth;
 
-    const token = jsonwebtoken.sign({ email }, secret_token, {
+    const token = jsonwebtoken.sign({}, secret_token, {
+      subject: user.id,
       expiresIn: expires_in_token,
     });
 
-    return token;
+    const refreshToken = jsonwebtoken.sign({ email }, secret_refresh_token, {
+      subject: user.id,
+      expiresIn: expires_in_refresh_token,
+    });
+
+    return {
+      token,
+      refreshToken,
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+    };
   }
 }
 

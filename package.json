@@ -20,7 +20,8 @@
     "eslint-plugin-prettier": "^3.3.1",
     "jest": "^27.0.6",
     "nodemon": "^2.0.12",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "sequelize-cli": "^6.2.0"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

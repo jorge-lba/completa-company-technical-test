@@ -43,7 +43,7 @@ class RefreshTokenUseCase {
 
     await this.userTokenRepository.save({
       expires_date: refresh_token_expires_date,
-      refresh_token,
+      refresh_token: new_refresh_token,
       user_id,
     });
 

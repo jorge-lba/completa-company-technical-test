@@ -7,7 +7,9 @@
   "type": "module",
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "dev": "nodemon --require dotenv/config src/shared/infra/http/server.js"
+    "dev": "nodemon --require dotenv/config src/shared/infra/http/server.js",
+    "start:dev": "node --require dotenv/config src/shared/infra/http/server.js",
+    "start:prod": "node src/shared/infra/http/server.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

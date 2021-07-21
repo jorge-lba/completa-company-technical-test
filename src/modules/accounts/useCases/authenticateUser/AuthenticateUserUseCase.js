@@ -11,6 +11,10 @@ class AuthenticateUserUseCase {
   async execute({ email, password }) {
     const user = await this.userRepository.findOneByEmail(email);
 
+    if (!user) {
+      throw new Error('Email or password incorrect!');
+    }
+
     const passwordMatch = user.password === password;
 
     if (!passwordMatch) {

@@ -28,7 +28,10 @@ describe('Refresh token use case', () => {
       userTokenRepository,
       dateProvider
     );
-    refreshTokenUseCase = new RefreshTokenUseCase();
+    refreshTokenUseCase = new RefreshTokenUseCase(
+      userTokenRepository,
+      dateProvider
+    );
   });
 
   it('should refresh token', async () => {

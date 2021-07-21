@@ -20,13 +20,7 @@ class UserRepositoryImpInMemory extends UserRepository {
 
     this.users.push(user);
 
-    return {
-      id: user.id,
-      name,
-      email,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-    };
+    return user;
   }
 
   async listAll() {
@@ -55,13 +49,7 @@ class UserRepositoryImpInMemory extends UserRepository {
 
     this.users[userIndex] = newDataUser;
 
-    return {
-      id: user.id,
-      name: newDataUser.name,
-      email: newDataUser.email,
-      createdAt: newDataUser.createdAt,
-      updatedAt: newDataUser.updatedAt,
-    };
+    return user;
   }
 
   async changePasswordById(userId, newPassword) {
@@ -75,6 +63,8 @@ class UserRepositoryImpInMemory extends UserRepository {
     };
 
     this.users[userIndex] = newDataUser;
+
+    return newDataUser;
   }
 
   async findOneByEmail(email) {

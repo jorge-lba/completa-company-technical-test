@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 import { UserRepositoryImpInMemory } from '../../repositories/in-memory/UserRepositoryImpInMemory.js';
 import { ChangePasswordByUserIdUseCase } from './ChangePasswordByUserIdUseCase.js';
 
@@ -20,14 +22,34 @@ describe('Change Password user by id', () => {
     };
 
     await userRepository.create({ ...user, name: 'testChangePassword2' });
-    const { id } = await userRepository.create(user);
 
-    await changePasswordByUserIdUseCase.execute(id, 'newTestPassword');
+    const hashedPassword = await bcrypt.hash(
+      user.password,
+      Number(process.env.HASH_SALT_OR_ROUNDS)
+    );
+
+    const { id } = await userRepository.create({
+      ...user,
+      password: hashedPassword,
+    });
+
+    const newPassword = 'newTestPassword';
+
+    await changePasswordByUserIdUseCase.execute({
+      userId: id,
+      oldPassword: user.password,
+      newPassword,
+    });
 
     const userChangedPassword = userRepository.users.find(
       (user) => user.id === id
     );
 
-    expect(userChangedPassword.password).toBe('newTestPassword');
+    const isNewPassword = await bcrypt.compare(
+      newPassword,
+      userChangedPassword.password
+    );
+
+    expect(isNewPassword).toBe(true);
   });
 });

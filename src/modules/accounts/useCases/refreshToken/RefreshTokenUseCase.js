@@ -19,6 +19,7 @@ class RefreshTokenUseCase {
       refresh_token,
       secret_refresh_token
     );
+
     const userToken =
       await this.userTokenRepository.findByUserIdAndRefreshToken({
         user_id,
@@ -40,7 +41,7 @@ class RefreshTokenUseCase {
       expiresIn: expires_in_refresh_token,
     });
 
-    await this.usersTokensRepository.create({
+    await this.userTokenRepository.save({
       expires_date: refresh_token_expires_date,
       refresh_token,
       user_id,

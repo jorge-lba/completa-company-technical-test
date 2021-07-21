@@ -13,8 +13,6 @@ async function ensureAuthenticated(request, response, next) {
 
   const [, token] = authHeader.split(' ');
 
-  console.log(token);
-
   try {
     const { sub: user_id } = jtw.verify(
       token,

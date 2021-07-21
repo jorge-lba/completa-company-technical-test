@@ -22,16 +22,9 @@ class UserRepositoryImp extends UserRepository {
   }
 
   async showById(user_id) {
-    const { id, name, email, createdAt, updatedAt } =
-      await this.repository.findByPk(user_id);
+    const user = await this.repository.findByPk(user_id);
 
-    return {
-      id,
-      name,
-      email,
-      createdAt,
-      updatedAt,
-    };
+    return user;
   }
 
   async listAll() {
@@ -47,14 +40,22 @@ class UserRepositoryImp extends UserRepository {
   async updateById(user_id, { name, email }) {
     const user = await this.repository.findByPk(user_id);
 
-    const { dataValues } = await user.update({
+    const updatedUser = await user.update({
       name,
       email,
     });
 
-    console.log(dataValues);
+    return updatedUser;
+  }
 
-    return dataValues;
+  async changePasswordById(user_id, password) {
+    const user = await this.repository.findByPk(user_id);
+
+    const updatedUser = await user.update({
+      password,
+    });
+
+    return updatedUser;
   }
 }
 

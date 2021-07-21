@@ -21,6 +21,10 @@ class UserTokenRepository {
   async findByUserIdAndRefreshToken() {
     throw new Error('Not implemented');
   }
+
+  async deleteById() {
+    throw new Error('Not implemented');
+  }
 }
 
 export { UserTokenRepository };

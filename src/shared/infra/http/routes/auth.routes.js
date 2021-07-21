@@ -1,7 +1,5 @@
 import { Router } from 'express';
 
-import { connection } from '../../sequelize/index.js';
-
 import { DayjsDateProviderImp } from '../../../providers/DateProvider/implementations/DayjsDateProviderImp.js';
 
 import { User } from '../../../../modules/accounts/infra/sequelize/entities/User.js';
@@ -17,9 +15,6 @@ import { AuthenticateUserController } from '../../../../modules/accounts/useCase
 import { RefreshTokenController } from '../../../../modules/accounts/useCases/refreshToken/RefreshTokenController.js';
 
 const authRoutes = Router();
-
-Token.init(connection);
-User.init(connection);
 
 const authenticateUserUseCase = new AuthenticateUserUseCase(
   new UserRepositoryImp(User),

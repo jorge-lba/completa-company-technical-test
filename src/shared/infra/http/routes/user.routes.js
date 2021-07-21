@@ -15,13 +15,10 @@ import { ListAllUsersController } from '../../../../modules/accounts/useCases/li
 import { UpdateByUserIdController } from '../../../../modules/accounts/useCases/updateByUserId/UpdateByUserIdController.js';
 import { ChangePasswordByUserIdController } from '../../../../modules/accounts/useCases/changePasswordByUserId/ChangePasswordByUserIdController.js';
 
-import { connection } from '../../sequelize/index.js';
 import { DeleteByUserIdUseCase } from '../../../../modules/accounts/useCases/deleteByUserId/DeleteByUserIdUseCase.js';
 import { DeleteByUserIdController } from '../../../../modules/accounts/useCases/deleteByUserId/DeleteByUserIdController.js';
 
 const userRoutes = Router();
-
-User.init(connection);
 
 const createNewUserUseCase = new CreateNewUserUseCase(
   new UserRepositoryImp(User)

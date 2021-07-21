@@ -43,6 +43,19 @@ class UserRepositoryImp extends UserRepository {
 
     return users;
   }
+
+  async updateById(user_id, { name, email }) {
+    const user = await this.repository.findByPk(user_id);
+
+    const { dataValues } = await user.update({
+      name,
+      email,
+    });
+
+    console.log(dataValues);
+
+    return dataValues;
+  }
 }
 
 export { UserRepositoryImp };

@@ -4,7 +4,8 @@ class UpdateByUserIdUseCase {
   }
 
   async execute(userId, { name, email }) {
-    await this.repository.updateById(userId, { name, email });
+    const user = await this.repository.updateById(userId, { name, email });
+    return user;
   }
 }
 

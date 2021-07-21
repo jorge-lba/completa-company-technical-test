@@ -1,0 +1,9 @@
+const dotenv = require('dotenv');
+const path = require('path');
+
+dotenv.config();
+
+module.exports = {
+  config: path.join(__dirname, 'src', 'shared', 'infra', 'sequelize', 'config', 'database.cjs'),
+  'migrations-path': path.join(__dirname, 'src', 'shared', 'infra', 'sequelize', 'migrations'),
+} 

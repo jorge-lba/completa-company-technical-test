@@ -61,6 +61,14 @@ class UserRepositoryImp extends UserRepository {
   async deleteById(user_id) {
     await this.repository.destroy({ where: { id: user_id } });
   }
+
+  async findOneByEmail(email) {
+    const user = await this.repository.findOne({
+      where: { email },
+    });
+
+    return user;
+  }
 }
 
 export { UserRepositoryImp };

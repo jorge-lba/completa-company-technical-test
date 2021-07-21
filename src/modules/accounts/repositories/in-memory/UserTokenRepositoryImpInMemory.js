@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 import { UserTokenRepository } from '../UserTokenRepository.js';
 
 class UserTokenRepositoryImpInMemory extends UserTokenRepository {
@@ -8,6 +10,7 @@ class UserTokenRepositoryImpInMemory extends UserTokenRepository {
 
   async save({ user_id, expires_date, refresh_token }) {
     const userToken = {
+      id: uuid(),
       user_id,
       expires_date,
       refresh_token,

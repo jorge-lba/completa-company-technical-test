@@ -1,5 +1,9 @@
+import { config } from 'dotenv';
+
 import { UserRepositoryImpInMemory } from '../../repositories/in-memory/UserRepositoryImpInMemory.js';
 import { CreateNewUserUseCase } from './CreateNewUserUseCase.js';
+
+config();
 
 describe('Create a new User use case', () => {
   let userRepository;

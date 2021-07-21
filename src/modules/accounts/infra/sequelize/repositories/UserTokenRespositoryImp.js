@@ -21,6 +21,21 @@ class UserTokenRepositoryImp extends UserTokenRepository {
 
     return token;
   }
+
+  async findByUserIdAndRefreshToken({ user_id, refresh_token }) {
+    const userToken = await this.repository.findOne({
+      where: {
+        user_id,
+        refresh_token,
+      },
+    });
+
+    return userToken;
+  }
+
+  async deleteById(id) {
+    await this.repository.destroy({ where: { id } });
+  }
 }
 
 export { UserTokenRepositoryImp };

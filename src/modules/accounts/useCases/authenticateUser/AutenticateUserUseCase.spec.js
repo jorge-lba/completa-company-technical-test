@@ -55,10 +55,10 @@ describe('Authenticate user Use Case', () => {
     console.log(refreshTokenIsValid);
 
     expect(token).toBeTruthy();
-    expect(tokenIsValid.subject).toBe(userId);
+    expect(tokenIsValid.sub).toBe(userId);
 
     expect(refreshToken).toBeTruthy();
-    expect(refreshTokenIsValid.subject).toBe(userId);
+    expect(refreshTokenIsValid.sub).toBe(userId);
     expect(refreshTokenIsValid.email).toBe(user.email);
   });
 });

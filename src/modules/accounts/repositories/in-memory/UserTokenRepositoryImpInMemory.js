@@ -23,8 +23,6 @@ class UserTokenRepositoryImpInMemory extends UserTokenRepository {
 
   async findByUserIdAndRefreshToken({ user_id, refresh_token }) {
     const userToken = this.usersToken.find((userToken) => {
-      console.log(userToken);
-
       return (
         userToken.user_id === user_id &&
         userToken.refresh_token === refresh_token
@@ -32,6 +30,14 @@ class UserTokenRepositoryImpInMemory extends UserTokenRepository {
     });
 
     return userToken;
+  }
+
+  async deleteById(id) {
+    const index = this.usersToken.findIndex((userToken) => userToken.id === id);
+
+    if (index > -1) {
+      this.usersToken.splice(index, 1);
+    }
   }
 }
 

@@ -13,6 +13,10 @@ class UserTokenRepository {
     }
     return this.instance;
   }
+
+  async save() {
+    throw new Error('Not implemented');
+  }
 }
 
 export { UserTokenRepository };

@@ -57,6 +57,10 @@ class UserRepositoryImp extends UserRepository {
 
     return updatedUser;
   }
+
+  async deleteById(user_id) {
+    await this.repository.destroy({ where: { id: user_id } });
+  }
 }
 
 export { UserRepositoryImp };

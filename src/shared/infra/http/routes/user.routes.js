@@ -16,6 +16,8 @@ import { UpdateByUserIdController } from '../../../../modules/accounts/useCases/
 import { ChangePasswordByUserIdController } from '../../../../modules/accounts/useCases/changePasswordByUserId/ChangePasswordByUserIdController.js';
 
 import { connection } from '../../sequelize/index.js';
+import { DeleteByUserIdUseCase } from '../../../../modules/accounts/useCases/deleteByUserId/DeleteByUserIdUseCase.js';
+import { DeleteByUserIdController } from '../../../../modules/accounts/useCases/deleteByUserId/DeleteByUserIdController.js';
 
 const userRoutes = Router();
 
@@ -34,6 +36,9 @@ const updateByUserIdUseCase = new UpdateByUserIdUseCase(
 const changePasswordByIdUseCase = new ChangePasswordByUserIdUseCase(
   new UserRepositoryImp(User)
 );
+const deleteByUserIdUseCase = new DeleteByUserIdUseCase(
+  new UserRepositoryImp(User)
+);
 
 const createNewUserController = new CreateNewUserController(
   createNewUserUseCase
@@ -46,6 +51,9 @@ const updateByUserIdController = new UpdateByUserIdController(
 const changePasswordByIdController = new ChangePasswordByUserIdController(
   changePasswordByIdUseCase
 );
+const deleteByUserIdController = new DeleteByUserIdController(
+  deleteByUserIdUseCase
+);
 
 userRoutes.post('/', (req, res) => createNewUserController.handle(req, res));
 userRoutes.get('/:user_id', (req, res) =>
@@ -57,6 +65,9 @@ userRoutes.put('/:user_id', (req, res) =>
 );
 userRoutes.put('/:user_id/password', (req, res) =>
   changePasswordByIdController.handle(req, res)
+);
+userRoutes.delete('/:user_id', (req, res) =>
+  deleteByUserIdController.handle(req, res)
 );
 
 export { userRoutes };

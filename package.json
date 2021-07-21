@@ -12,7 +12,6 @@
     "start:prod": "node src/shared/infra/http/server.js"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
     "dotenv": "^10.0.0",
     "eslint": "^7.22.0",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -27,6 +26,7 @@
     "sequelize-cli": "^6.2.0"
   },
   "dependencies": {
+    "babel-core": "^6.26.3",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dayjs": "^1.10.6",

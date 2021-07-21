@@ -4,7 +4,7 @@ class UpdateByUserIdController {
   }
 
   async handle(request, response) {
-    const { user_id } = request.params;
+    const { user_id } = request.user;
     const { name, email } = request.body;
 
     const {

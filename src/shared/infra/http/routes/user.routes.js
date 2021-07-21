@@ -17,6 +17,7 @@ import { ChangePasswordByUserIdController } from '../../../../modules/accounts/u
 
 import { DeleteByUserIdUseCase } from '../../../../modules/accounts/useCases/deleteByUserId/DeleteByUserIdUseCase.js';
 import { DeleteByUserIdController } from '../../../../modules/accounts/useCases/deleteByUserId/DeleteByUserIdController.js';
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated.js';
 
 const userRoutes = Router();
 
@@ -53,17 +54,19 @@ const deleteByUserIdController = new DeleteByUserIdController(
 );
 
 userRoutes.post('/', (req, res) => createNewUserController.handle(req, res));
-userRoutes.get('/:user_id', (req, res) =>
+userRoutes.get('/:user_id', ensureAuthenticated, (req, res) =>
   showByUserIdController.handle(req, res)
 );
-userRoutes.get('/', (req, res) => listAllUsersController.handle(req, res));
-userRoutes.put('/:user_id', (req, res) =>
+userRoutes.get('/', ensureAuthenticated, (req, res) =>
+  listAllUsersController.handle(req, res)
+);
+userRoutes.put('/:user_id', ensureAuthenticated, (req, res) =>
   updateByUserIdController.handle(req, res)
 );
-userRoutes.put('/:user_id/password', (req, res) =>
+userRoutes.put('/password', ensureAuthenticated, (req, res) =>
   changePasswordByIdController.handle(req, res)
 );
-userRoutes.delete('/:user_id', (req, res) =>
+userRoutes.delete('/:user_id', ensureAuthenticated, (req, res) =>
   deleteByUserIdController.handle(req, res)
 );
 

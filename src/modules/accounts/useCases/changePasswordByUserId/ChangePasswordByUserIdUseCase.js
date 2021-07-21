@@ -1,4 +1,5 @@
 import { compare, hash } from 'bcrypt';
+import { AppError } from '../../../../shared/infra/http/errors/AppError.js';
 
 class ChangePasswordByUserIdUseCase {
   constructor(repository) {
@@ -11,7 +12,7 @@ class ChangePasswordByUserIdUseCase {
     const isPasswordValid = await compare(oldPassword, user.password);
 
     if (!isPasswordValid) {
-      throw new Error('User or old password is not valid');
+      throw new AppError('User or old password is not valid');
     }
 
     const password = await hash(

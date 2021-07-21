@@ -2,13 +2,14 @@ import jtw from 'jsonwebtoken';
 
 import { Token } from '../../../../modules/accounts/infra/sequelize/entities/Token.js';
 import { UserTokenRepositoryImp } from '../../../../modules/accounts/infra/sequelize/repositories/UserTokenRespositoryImp.js';
+import { AppError } from '../errors/AppError.js';
 
 async function ensureAuthenticated(request, response, next) {
   const authHeader = request.headers.authorization;
   const userTokensRepository = new UserTokenRepositoryImp(Token);
 
   if (!authHeader) {
-    throw new Error('Token missing');
+    throw new AppError('Token missing');
   }
 
   const [, token] = authHeader.split(' ');
@@ -27,7 +28,7 @@ async function ensureAuthenticated(request, response, next) {
     );
 
     if (!isTokenValid) {
-      throw new Error('User does not exists');
+      throw new AppError('User does not exists');
     }
 
     request.user = {
@@ -36,7 +37,7 @@ async function ensureAuthenticated(request, response, next) {
 
     return next();
   } catch (error) {
-    throw new Error('Invalid token');
+    throw new AppError('Invalid token');
   }
 }
 

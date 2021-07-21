@@ -15,7 +15,9 @@ app.use(router);
 // eslint-disable-next-line no-unused-vars
 app.use((err, request, response, next) => {
   if (err instanceof AppError) {
-    return response.status(err.statusCode).json({ message: err.message });
+    return response
+      .status(err.statusCode || 400)
+      .json({ message: err.message });
   }
 
   return response.status(400).json({

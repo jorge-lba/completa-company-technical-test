@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 import auth from '../../../../config/authentication.js';
+import { AppError } from '../../../../shared/infra/http/errors/AppError.js';
 
 class RefreshTokenUseCase {
   constructor(userTokenRepository, dateProvider) {
@@ -27,7 +28,7 @@ class RefreshTokenUseCase {
       });
 
     if (!userToken) {
-      throw new Error('Refresh token does not exists!');
+      throw new AppError('Refresh token does not exists!');
     }
 
     await this.userTokenRepository.deleteById(userToken.id);

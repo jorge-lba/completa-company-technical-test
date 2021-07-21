@@ -1,9 +1,11 @@
+import { AppError } from '../../../shared/infra/http/errors/AppError.js';
+
 class UserRepository {
   constructor(repository) {
     this.repository = repository;
 
     if (this.constructor === UserRepository) {
-      throw new Error('UserRepository is abstract class');
+      throw new AppError('UserRepository is abstract class');
     }
   }
 
@@ -15,31 +17,31 @@ class UserRepository {
   }
 
   async create() {
-    throw new Error('Not implemented');
+    throw new AppError('Not implemented');
   }
 
   async listAll() {
-    throw new Error('Not implemented');
+    throw new AppError('Not implemented');
   }
 
   async showById() {
-    throw new Error('Not implemented');
+    throw new AppError('Not implemented');
   }
 
   async deleteById() {
-    throw new Error('Not implemented');
+    throw new AppError('Not implemented');
   }
 
   async updateById() {
-    throw new Error('Not implemented');
+    throw new AppError('Not implemented');
   }
 
   async changePasswordById() {
-    throw new Error('Not implemented');
+    throw new AppError('Not implemented');
   }
 
   async findOneByEmail() {
-    throw new Error('Not implemented');
+    throw new AppError('Not implemented');
   }
 }
 

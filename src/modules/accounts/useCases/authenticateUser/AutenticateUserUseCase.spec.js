@@ -4,6 +4,8 @@ import { config } from 'dotenv';
 
 import { UserRepositoryImpInMemory } from '../../repositories/in-memory/UserRepositoryImpInMemory.js';
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase.js';
+import { UserTokenRepositoryImpInMemory } from '../../repositories/in-memory/UserTokenRepositoryImpInMemory.js';
+import { DayjsDateProviderImp } from '../../../../shared/providers/DateProvider/implementations/DayjsDateProviderImp.js';
 
 import auth from '../../../../config/authentication.js';
 
@@ -11,11 +13,19 @@ config();
 
 describe('Authenticate user Use Case', () => {
   let userRepository;
+  let dateProvider;
   let authenticateUserUseCase;
+  let userTokenRepository;
 
   beforeEach(() => {
     userRepository = UserRepositoryImpInMemory.getInstance();
-    authenticateUserUseCase = new AuthenticateUserUseCase(userRepository);
+    dateProvider = new DayjsDateProviderImp();
+    userTokenRepository = new UserTokenRepositoryImpInMemory();
+    authenticateUserUseCase = new AuthenticateUserUseCase(
+      userRepository,
+      userTokenRepository,
+      dateProvider
+    );
   });
 
   it('should authenticate user', async () => {
@@ -65,21 +75,21 @@ describe('Authenticate user Use Case', () => {
       email: `2${user.email}`,
     });
 
-    const { token, refreshToken } = await authenticateUserUseCase.execute({
+    const { token, refresh_token } = await authenticateUserUseCase.execute({
       email: user.email,
       password: user.password,
     });
 
     const tokenIsValid = jwt.verify(token, auth.secret_token);
     const refreshTokenIsValid = jwt.verify(
-      refreshToken,
+      refresh_token,
       auth.secret_refresh_token
     );
 
     expect(token).toBeTruthy();
     expect(tokenIsValid.sub).toBe(userId);
 
-    expect(refreshToken).toBeTruthy();
+    expect(refresh_token).toBeTruthy();
     expect(refreshTokenIsValid.sub).toBe(userId);
     expect(refreshTokenIsValid.email).toBe(user.email);
   });

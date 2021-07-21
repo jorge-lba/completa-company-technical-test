@@ -1,4 +1,5 @@
 import { config } from 'dotenv';
+import { AppError } from '../../../../shared/infra/http/errors/AppError.js';
 
 import { UserRepositoryImpInMemory } from '../../repositories/in-memory/UserRepositoryImpInMemory.js';
 import { CreateNewUserUseCase } from './CreateNewUserUseCase.js';
@@ -38,9 +39,10 @@ describe('Create a new User use case', () => {
       password: 'testPassword',
     };
 
-    const response = await createNewUserUseCase.execute(user);
+    const response = createNewUserUseCase.execute(user);
 
-    expect(response.status).toEqual(400);
-    expect(response.message).toEqual('User already exists');
+    await expect(response).rejects.toEqual(
+      new AppError('User already exists', 400)
+    );
   });
 });

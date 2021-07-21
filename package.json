@@ -6,7 +6,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "dev": "nodemon --require dotenv/config src/shared/infra/http/server.js"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
@@ -18,11 +19,15 @@
     "eslint-plugin-import-helpers": "^1.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "jest": "^27.0.6",
+    "nodemon": "^2.0.12",
     "prettier": "^2.2.1"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "dayjs": "^1.10.6",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.4",

@@ -46,6 +46,7 @@ class AuthenticateUserUseCase {
     );
 
     await this.userTokenRepository.save({
+      user_id: user.id,
       token,
       refresh_token,
       expires_date: refresh_token_expires_date,

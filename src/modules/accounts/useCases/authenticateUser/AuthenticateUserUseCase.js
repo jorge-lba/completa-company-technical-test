@@ -2,6 +2,7 @@ import jsonwebtoken from 'jsonwebtoken';
 import { compare } from 'bcrypt';
 
 import auth from '../../../../config/authentication.js';
+import { AppError } from '../../../../shared/infra/http/errors/AppError.js';
 
 class AuthenticateUserUseCase {
   constructor(userRepository, userTokenRepository, dateProvider) {
@@ -14,13 +15,13 @@ class AuthenticateUserUseCase {
     const user = await this.userRepository.findOneByEmail(email);
 
     if (!user) {
-      throw new Error('Email or password incorrect!');
+      throw new AppError('Email or password incorrect!');
     }
 
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new Error('Email or password incorrect!');
+      throw new AppError('Email or password incorrect!');
     }
 
     const {

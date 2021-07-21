@@ -1,3 +1,5 @@
+import { AppError } from '../../../shared/infra/http/errors/AppError.js';
+
 class UserTokenRepository {
   constructor(repository) {
     this.repository = repository;
@@ -15,15 +17,15 @@ class UserTokenRepository {
   }
 
   async save() {
-    throw new Error('Not implemented');
+    throw new AppError('Not implemented');
   }
 
   async findByUserIdAndRefreshToken() {
-    throw new Error('Not implemented');
+    throw new AppError('Not implemented');
   }
 
   async deleteById() {
-    throw new Error('Not implemented');
+    throw new AppError('Not implemented');
   }
 }
 

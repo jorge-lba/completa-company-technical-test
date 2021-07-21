@@ -33,6 +33,16 @@ class UserRepositoryImp extends UserRepository {
       updatedAt,
     };
   }
+
+  async listAll() {
+    const response = await this.repository.findAll();
+
+    const users = response.map((user) => ({
+      ...user.dataValues,
+    }));
+
+    return users;
+  }
 }
 
 export { UserRepositoryImp };

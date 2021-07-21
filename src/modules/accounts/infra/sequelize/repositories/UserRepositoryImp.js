@@ -20,6 +20,19 @@ class UserRepositoryImp extends UserRepository {
 
     return user;
   }
+
+  async showById(user_id) {
+    const { id, name, email, createdAt, updatedAt } =
+      await this.repository.findByPk(user_id);
+
+    return {
+      id,
+      name,
+      email,
+      createdAt,
+      updatedAt,
+    };
+  }
 }
 
 export { UserRepositoryImp };

@@ -23,7 +23,7 @@ describe('Authenticate user Use Case', () => {
 
     await userRepository.create(user);
 
-    const token = await authenticateUserUseCase.execute({
+    const { token } = await authenticateUserUseCase.execute({
       email: user.email,
       password: user.password,
     });

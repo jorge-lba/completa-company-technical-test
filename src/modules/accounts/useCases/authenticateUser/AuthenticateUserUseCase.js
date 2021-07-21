@@ -4,9 +4,10 @@ import { compare } from 'bcrypt';
 import auth from '../../../../config/authentication.js';
 
 class AuthenticateUserUseCase {
-  constructor(userRepository, userTokenRepository) {
+  constructor(userRepository, userTokenRepository, dateProvider) {
     this.userRepository = userRepository;
     this.userTokenRepository = userTokenRepository;
+    this.dateProvider = dateProvider;
   }
 
   async execute({ email, password }) {
@@ -27,6 +28,7 @@ class AuthenticateUserUseCase {
       expires_in_refresh_token,
       secret_token,
       secret_refresh_token,
+      expires_refresh_token_days,
     } = auth;
 
     const token = jsonwebtoken.sign({}, secret_token, {
@@ -34,14 +36,24 @@ class AuthenticateUserUseCase {
       expiresIn: expires_in_token,
     });
 
-    const refreshToken = jsonwebtoken.sign({ email }, secret_refresh_token, {
+    const refresh_token = jsonwebtoken.sign({ email }, secret_refresh_token, {
       subject: user.id,
       expiresIn: expires_in_refresh_token,
     });
 
+    const refresh_token_expires_date = this.dateProvider.addDays(
+      expires_refresh_token_days
+    );
+
+    await this.userTokenRepository.save({
+      token,
+      refresh_token,
+      expires_date: refresh_token_expires_date,
+    });
+
     return {
       token,
-      refreshToken,
+      refresh_token,
       user: {
         name: user.name,
         email: user.email,

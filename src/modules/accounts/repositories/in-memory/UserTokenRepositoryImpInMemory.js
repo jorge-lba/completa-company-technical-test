@@ -6,11 +6,11 @@ class UserTokenRepositoryImpInMemory extends UserTokenRepository {
     this.usersToken = [];
   }
 
-  async save({ user_id, expires_date, refreshToken }) {
+  async save({ user_id, expires_date, refresh_token }) {
     const userToken = {
       user_id,
       expires_date,
-      refreshToken,
+      refresh_token,
     };
 
     this.usersToken.push(userToken);

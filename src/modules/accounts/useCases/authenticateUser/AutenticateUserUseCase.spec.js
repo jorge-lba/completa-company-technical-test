@@ -1,9 +1,13 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import { config } from 'dotenv';
 
 import { UserRepositoryImpInMemory } from '../../repositories/in-memory/UserRepositoryImpInMemory.js';
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase.js';
 
 import auth from '../../../../config/authentication.js';
+
+config();
 
 describe('Authenticate user Use Case', () => {
   let userRepository;
@@ -21,7 +25,15 @@ describe('Authenticate user Use Case', () => {
       password: 'testToken',
     };
 
-    await userRepository.create(user);
+    const hashedPassword = await bcrypt.hash(
+      user.password,
+      Number(process.env.HASH_SALT_OR_ROUNDS)
+    );
+
+    await userRepository.create({
+      ...user,
+      password: hashedPassword,
+    });
 
     const { token } = await authenticateUserUseCase.execute({
       email: user.email,
@@ -38,7 +50,20 @@ describe('Authenticate user Use Case', () => {
       password: 'testRefreshToken',
     };
 
-    const { id: userId } = await userRepository.create(user);
+    const hashedPassword = await bcrypt.hash(
+      user.password,
+      Number(process.env.HASH_SALT_OR_ROUNDS)
+    );
+
+    const { id: userId } = await userRepository.create({
+      ...user,
+      password: hashedPassword,
+    });
+
+    await userRepository.create({
+      ...user,
+      email: `2${user.email}`,
+    });
 
     const { token, refreshToken } = await authenticateUserUseCase.execute({
       email: user.email,
@@ -50,9 +75,6 @@ describe('Authenticate user Use Case', () => {
       refreshToken,
       auth.secret_refresh_token
     );
-
-    console.log(tokenIsValid);
-    console.log(refreshTokenIsValid);
 
     expect(token).toBeTruthy();
     expect(tokenIsValid.sub).toBe(userId);

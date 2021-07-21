@@ -1,4 +1,5 @@
 import jsonwebtoken from 'jsonwebtoken';
+import { compare } from 'bcrypt';
 
 import auth from '../../../../config/authentication.js';
 
@@ -15,7 +16,7 @@ class AuthenticateUserUseCase {
       throw new Error('Email or password incorrect!');
     }
 
-    const passwordMatch = user.password === password;
+    const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
       throw new Error('Email or password incorrect!');
